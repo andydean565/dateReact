@@ -1,0 +1,32 @@
+{
+  "name": "datereact",
+  "version": "1.0.0",
+  "description": "JavaScript plugin to change to change how your content will display based on the time/day/month or custom dates",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp compilejs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewsPortfolio/dateReact.git"
+  },
+  "keywords": [
+    "javascript",
+    "plugin",
+    "dateReact",
+    "timeReact"
+  ],
+  "author": "Andrew Dean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrewsPortfolio/dateReact/issues"
+  },
+  "homepage": "https://github.com/AndrewsPortfolio/dateReact#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^1.0.0",
+    "gulp-remove-logging": "^1.2.0",
+    "gulp-watch": "^4.3.11"
+  }
+}
