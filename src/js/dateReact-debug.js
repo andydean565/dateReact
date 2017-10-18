@@ -124,6 +124,16 @@ function dr_within(ex, type, between){
             return dr_numBetween(ex, c_year);    
             break;
         case 'date':
+            if(between){
+                console.log(ex);
+                console.log(c_date);
+                return dateCheck(ex[0],ex[1],c_date);
+            }else{
+                for (var i = 0; i <= ex.length; i++) {
+                    var date = new Date(ex[i]);                                    
+                    if(date == c_date){return true;}
+                }
+            }
             break;
         default:
     }    
@@ -131,6 +141,7 @@ function dr_within(ex, type, between){
     
 
 function dr_freq(ex){
+    console.log(Date.parse(ex));
     if(isNumber(ex) && ex.length == 2){
         return 'time';        
     }else if(isNumber(ex) && ex.length == 4){
@@ -145,10 +156,12 @@ function dr_freq(ex){
 }
 
 function dr_numBetween(ex, num){
-    console.log(ex);
-    console.log(num);
-    if (num > ex[0] && num < ex[1]) {return true;}
-    else{return false;}
+    if (num >= ex[0] && num <= ex[1]) {    
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 function dr_arrayBetween(ex, array){
@@ -173,9 +186,20 @@ function dr_validate(el){
         return false;
     }
     else if(type){
-        if(type !== 'show' && type !== 'hide'){if(!data){return false;}        }
+        if(type !== 'show' && type !== 'hide'){if(!data){return false;}}
         return true;
     }else{return false;}
 }
+
+function dateCheck(from,to,check) {
+    var fDate,lDate,cDate;
+    fDate = Date.parse(from);
+    lDate = Date.parse(to);
+    cDate = Date.parse(check);
+    
+    if((cDate <= lDate && cDate >= fDate)) {return true;}
+    else{return false;}
+}
+    
 
 function isNumber(obj) { return !isNaN(parseFloat(obj)) }
