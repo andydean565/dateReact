@@ -23,17 +23,18 @@ var data = {
     'text' : 'text'
 };
 
+var predefined = {
+    'halloween' : '10/18-10/31',
+    'easter' : '04/18-04/26',
+    'xmas' : '12/18-12/26'    
+};
+
 //selector class (if changed will update across site)
 var selector = ".dateReact";
 
 //document ready
 $( document ).ready(function() {
-    
-    
-    
-    
-    dr_find();
-      
+    dr_find();      
 });
 
 function dr_find(){
@@ -125,8 +126,6 @@ function dr_within(ex, type, between){
             break;
         case 'date':
             if(between){
-                
-                
                 return dateCheck(ex[0],ex[1],c_date);
             }else{
                 for (var i = 0; i <= ex.length; i++) {
@@ -141,7 +140,6 @@ function dr_within(ex, type, between){
     
 
 function dr_freq(ex){
-    
     if(isNumber(ex) && ex.length == 2){
         return 'time';        
     }else if(isNumber(ex) && ex.length == 4){
@@ -193,9 +191,14 @@ function dr_validate(el){
 
 function dateCheck(from,to,check) {
     var fDate,lDate,cDate;
+    
+    
     fDate = Date.parse(from);
     lDate = Date.parse(to);
     cDate = Date.parse(check);
+
+    
+    
     
     if((cDate <= lDate && cDate >= fDate)) {return true;}
     else{return false;}
