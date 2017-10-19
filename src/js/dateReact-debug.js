@@ -40,8 +40,8 @@ $( document ).ready(function() {
 function dr_find(){
     $( selector ).each(function( index ) {
         if(!dr_validate(this)){return false;}
+        var type = dr_type(this);          
         var between = dr_span(this);  
-        var type = dr_type(this);  
         var selected = dr_amount(this);
         var freq = dr_freq(selected[0]);
         var apply = dr_within(selected, freq, between);
@@ -79,6 +79,10 @@ function dr_amount(el){
     var freq;
     var between = false;
 
+    if(span.startsWith("[") && span.endsWith("]")){
+        span = predefined['' + span.substr(1).slice(0, -1) +''];
+    }
+
     if(span.includes("-")){
         extract = span.split("-");
         if(extract.length != 2){return false}
@@ -89,7 +93,10 @@ function dr_amount(el){
 }
 
 function dr_span(el){
-    var span = $(el).attr('' + options.span + '');    
+    var span = $(el).attr('' + options.span + '');        
+    if(span.startsWith("[") && span.endsWith("]")){
+        span = predefined['' + span.substr(1).slice(0, -1) +''];
+    }
     if(span.includes("-")){return true;}
     else{return false;}
 }
@@ -103,8 +110,10 @@ function dr_data(el){
 }
 
 function dr_within(ex, type, between){
+    
     switch(type) {
         case 'time':
+            console.log(ex);
             if(between){return dr_numBetween(ex, c_hour);}
             else{
                 for (var i = 0; i <= ex.length; i++) {
@@ -191,8 +200,6 @@ function dr_validate(el){
 
 function dateCheck(from,to,check) {
     var fDate,lDate,cDate;
-    console.log(from + " - " + to);
-
     if(from.length == 5){
         from = (from + "/" + c_year);
     }
@@ -204,11 +211,12 @@ function dateCheck(from,to,check) {
     lDate = Date.parse(to);
     cDate = Date.parse(check);
 
-    console.log(fDate + " - " + cDate + " - " + lDate);
-    
-    
-    if((cDate <= lDate && cDate >= fDate)) {return true;}
-    else{return false;}
+    if((cDate <= lDate && cDate >= fDate)) {
+        return true;
+    }
+    else{
+        return false;
+    }
 }
     
 

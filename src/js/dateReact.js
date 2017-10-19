@@ -79,6 +79,10 @@ function dr_amount(el){
     var freq;
     var between = false;
 
+    if(span.startsWith("[") && span.endsWith("]")){
+        span = predefined['' + span.substr(1).slice(0, -1) +''];
+    }
+
     if(span.includes("-")){
         extract = span.split("-");
         if(extract.length != 2){return false}
@@ -191,17 +195,23 @@ function dr_validate(el){
 
 function dateCheck(from,to,check) {
     var fDate,lDate,cDate;
-    
+    if(from.length == 5){
+        from = (from + "/" + c_year);
+    }
+    if(to.length == 5){
+        to = (to + "/" + c_year);
+    }
     
     fDate = Date.parse(from);
     lDate = Date.parse(to);
     cDate = Date.parse(check);
 
-    
-    
-    
-    if((cDate <= lDate && cDate >= fDate)) {return true;}
-    else{return false;}
+    if((cDate <= lDate && cDate >= fDate)) {
+        return true;
+    }
+    else{
+        return false;
+    }
 }
     
 
