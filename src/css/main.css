@@ -1,3 +1,7 @@
 .dateReact{
     display: none;
 }
+
+.selected{
+    color: #51ff00
+}
