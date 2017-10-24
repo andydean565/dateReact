@@ -3,6 +3,18 @@ JavaScript plugin to change to change how your content will display based on the
 
 ## atributes
 
+```html
+react-span="01-03"
+```
+
+```html
+react-type="class"
+```
+
+```html
+react-data="active"
+```
+
 ## format
 
 | type    | Time          | Day                       | Month                 | date                               | predefined  |
@@ -12,4 +24,12 @@ JavaScript plugin to change to change how your content will display based on the
 
 ## examples
 
+```html
+<span react-span="01-03" react-type="class" react-data="active">1-3</span>
+```
+
 ### notes
+
+
+
+### future development

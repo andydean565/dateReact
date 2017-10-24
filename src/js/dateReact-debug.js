@@ -10,10 +10,10 @@ var d_key = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'sat
 var m_key = ['january', 'febuary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 var options = {
-    'feq' : 'react-freq', //time / day / month / year / custom 
+    'feq' : 'react-freq', //time / day / month / year / custom
     'type' : 'react-type', //show / hide / class / text
     'data' : 'react-data', //the class / text / etc
-    'span' : 'react-span', // start and stop seperated by - 
+    'span' : 'react-span', // start and stop seperated by -
 };
 
 var data = {
@@ -26,27 +26,30 @@ var data = {
 var predefined = {
     'halloween' : '10/18-10/31',
     'easter' : '04/18-04/26',
-    'xmas' : '12/18-12/26'    
+    'xmas' : '12/18-12/26'
 };
 
 //selector class (if changed will update across site)
-var selector = ".dateReact";
+var selector = "[" + options.span + "]";
 
 //document ready
 $( document ).ready(function() {
-    dr_find();      
+    dr_find();
 });
 
 function dr_find(){
     $( selector ).each(function( index ) {
         if(!dr_validate(this)){return false;}
-        var type = dr_type(this);          
-        var between = dr_span(this);  
+        var type = dr_type(this);
+        var between = dr_span(this);
         var selected = dr_amount(this);
         var freq = dr_freq(selected[0]);
         var apply = dr_within(selected, freq, between);
-        if(apply){var result = dr_apply(this, type);}
-    });    
+        if(apply){var result = dr_apply(this, type);}else{
+          if(type == "show"){$(this).hide();}
+          else if(type == "hide"){$(this).show();}
+        }
+    });
 }
 
 function dr_apply(el, type){
@@ -56,21 +59,21 @@ function dr_apply(el, type){
             return true;
             break;
         case 'hide':
-            $(el).hide();  
-            return true;            
+            $(el).hide();
+            return true;
             break;
         case 'class':
-            $(el).addClass( dr_data(el) );     
-            return true;                        
+            $(el).addClass( dr_data(el) );
+            return true;
             break;
         case 'text':
-            $(el).text( dr_data(el) );       
-            return true;                        
+            $(el).text( dr_data(el) );
+            return true;
             break;
         default:
-            return false;                        
+            return false;
             break;
-    }    
+    }
 }
 
 function dr_amount(el){
@@ -93,7 +96,7 @@ function dr_amount(el){
 }
 
 function dr_span(el){
-    var span = $(el).attr('' + options.span + '');        
+    var span = $(el).attr('' + options.span + '');
     if(span.startsWith("[") && span.endsWith("]")){
         span = predefined['' + span.substr(1).slice(0, -1) +''];
     }
@@ -102,18 +105,17 @@ function dr_span(el){
 }
 
 function dr_type(el){
-    return span = $(el).attr('' + options.type + '');    
+    return span = $(el).attr('' + options.type + '');
 }
 
 function dr_data(el){
-    return span = $(el).attr('' + options.data + '');    
+    return span = $(el).attr('' + options.data + '');
 }
 
 function dr_within(ex, type, between){
-    
+
     switch(type) {
         case 'time':
-            console.log(ex);
             if(between){return dr_numBetween(ex, c_hour);}
             else{
                 for (var i = 0; i <= ex.length; i++) {
@@ -131,39 +133,40 @@ function dr_within(ex, type, between){
             else {return dr_excists(ex, m_key, c_month);}
             break;
         case 'year':
-            return dr_numBetween(ex, c_year);    
+            return dr_numBetween(ex, c_year);
             break;
         case 'date':
+        console.log(ex);
             if(between){
                 return dateCheck(ex[0],ex[1],c_date);
             }else{
                 for (var i = 0; i <= ex.length; i++) {
-                    var date = new Date(ex[i]);                                    
+                    var date = new Date(ex[i]);
                     if(date == c_date){return true;}
                 }
             }
             break;
         default:
-    }    
+    }
 }
-    
+
 
 function dr_freq(ex){
     if(isNumber(ex) && ex.length == 2){
-        return 'time';        
+        return 'time';
     }else if(isNumber(ex) && ex.length == 4){
         return 'year';
     }else if(Date.parse(ex)){
         return 'date';
     }else if($.inArray(ex, d_key) != -1){
-        return 'day';        
+        return 'day';
     }else if($.inArray(ex, m_key) != -1){
-        return 'month';                
+        return 'month';
     }else{return false;}
 }
 
 function dr_numBetween(ex, num){
-    if (num >= ex[0] && num <= ex[1]) {    
+    if (num >= ex[0] && num <= ex[1]) {
         return true;
     }
     else{
@@ -175,7 +178,7 @@ function dr_arrayBetween(ex, array){
     var start = $.inArray(ex[0], array);
     var end = $.inArray(ex[1], array);
     if (c_month > start && c_month < end) {return true;}
-    else{return false;}    
+    else{return false;}
 }
 
 function dr_excists(ex, key, value){
@@ -200,24 +203,21 @@ function dr_validate(el){
 
 function dateCheck(from,to,check) {
     var fDate,lDate,cDate;
-    if(from.length == 5){
-        from = (from + "/" + c_year);
-    }
-    if(to.length == 5){
-        to = (to + "/" + c_year);
-    }
-    
-    fDate = Date.parse(from);
-    lDate = Date.parse(to);
-    cDate = Date.parse(check);
 
-    if((cDate <= lDate && cDate >= fDate)) {
-        return true;
-    }
-    else{
-        return false;
-    }
+    if(from.length == 5){from = (from + "/" + c_year);}
+    if(to.length == 5){to = (to + "/" + c_year);}
+
+    //bug fix as the date is converted to num causing <= to not match up correctly
+    var tmp = new Date(to);
+
+    fDate = Date.parse(from);
+    tDate = new Date(tmp).setDate(tmp.getDate()+1);
+    cDate = Date.parse(check);
+    console.log(tDate);
+
+    if((cDate < tDate && cDate >= fDate)) {return true;}
+    else{return false;}
 }
-    
+
 
 function isNumber(obj) { return !isNaN(parseFloat(obj)) }
