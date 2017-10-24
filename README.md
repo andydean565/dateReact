@@ -64,4 +64,4 @@ the plugin will auto detect the span with you have entered but let me know if yo
 * shortened days and months formats
 * allow users to put dates of the current month (can be done with predefined with some js added)
 * more complex types
-** maybe change depending how long someone has been on your website
+⋅⋅* maybe change depending how long someone has been on your website
