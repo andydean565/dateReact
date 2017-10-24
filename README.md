@@ -17,17 +17,10 @@ the type attribute is what you want to happen if the current date is within the 
 
 below are the current types but any suggestions can be added easily.
 
-<<<<<<< HEAD
 * show
 * hide
 * class
 * text
-=======
--show
--hide
--class
--text
->>>>>>> 355b24486b934d372fae066bf51a5c0f0121688e
 
 ```html
 react-type="class"
@@ -60,7 +53,7 @@ this example will add the class `active` to the span element if the time is betw
 
 the time is in 24hour on 12 hour so you can display it anytime in the day
 
-predefined variables will need to be included in the file so fork the plugin edit the debig with your desired predefined and use gulp to compile the min
+predefined variables will need to be included in the file so fork the plugin edit the debug with your desired predefined and use gulp to compile the min
 
 the plugin will auto detect the span with you have entered but let me know if your having issues with a date
 
@@ -68,14 +61,7 @@ the plugin will auto detect the span with you have entered but let me know if yo
 
 ### future development
 
-<<<<<<< HEAD
 * shortened days and months formats
 * allow users to put dates of the current month (can be done with predefined with some js added)
 * more complex types
 ** maybe change depending how long someone has been on your website
-=======
--shortened days and months formats
--allow users to put dates of the current month (can be done with predefined with some js added)
--more complex types
---maybe change depending how long someone has been on your website
->>>>>>> 355b24486b934d372fae066bf51a5c0f0121688e
